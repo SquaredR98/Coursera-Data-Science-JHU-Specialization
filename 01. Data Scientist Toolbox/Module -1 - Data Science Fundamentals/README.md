@@ -71,3 +71,67 @@ He uses large amounts of totally free public data to make predictions about a va
 - One great example of data science in action is from 2009, in which researchers at Google analysed 50 million commonly searched terms over a five year period, and compared them against CDC data on flu outbreaks. Their goal was to see if certain searches coincided with outbreaks of the flu. 
 - One of the benefits of data science and using big data is that it can identify correlations; in this case, they identified 45 words that had a strong correlation with the CDC flu outbreak data. 
 - With this data, they have been able to predict flu outbreaks based solely off of common Google searches! Without this mass amounts of data, these 45 words could not have been predicted beforehand.
+
+# What is Data?
+
+- Data definition by
+
+  1. [Cambridge English Dictionary](https://dictionary.cambridge.org/dictionary/english/data):
+
+     > Information, especially facts or numbers, collected to be examined and considered and used to help decision-making.
+
+  2.  [Wikipedia](https://en.wikipedia.org/wiki/Data):
+
+     > A set of values of qualitative or quantitative variables.
+
+  - Exploring definition by Wikipedia:
+    - **Set**: In statistics, the population we are trying to discover something about.
+    - **Variable**: Measurements or characteristics of an item.
+    - **Qualitative Variable**: Measurements or information about qualities.
+    - **Quantitative Variable**: Measurements or information about quantities or numerical items.
+
+## What Data can look like?
+
+| Name      | Country of Origin | Sex    | Weight(kg) | Height(cm) |
+| --------- | ----------------- | ------ | ---------- | ---------- |
+| A. Bee    | Canada            | Male   | 75         | 163        |
+| C. Dee    | UAE               | Male   | 80         | 180        |
+| E. Eff    | China             | Female | 72         | 175        |
+| G. Haitch | South Africa      | Female | 68         | 172        |
+| I. Jay    | Poland            | Male   | 77         | N/A        |
+| K. Elle   | Japan             | N/A    | 76         | 173        |
+| M. Enn    | Chile             | Male   | 80         | 190        |
+
+- The data presented above are very rare in reality the datasets are much more messier than the above format.
+
+## Most common types of Messy Data
+
+#### 1. Sequencing
+
+- This data is generally first encountered in the FASTQ format, the raw file format produced by sequencing machines. 
+
+- These files are often hundreds of millions of lines long, and it is our job to parse this into an understandable and interpretable format and infer something about that individual’s genome. 
+
+- In this case, this data was interpreted into expression data, and produced a plot called a “volcano plot”.
+
+  ![](./images/sequencing.png)
+
+#### 2. Census Information
+
+![](./images/uscensus.png)
+
+#### Electronic medical records (EMR)
+
+- Electronic medical records are increasingly prevalent as a way to store health information, and more and more population based studies are using this data to answer questions and make inferences about populations at large, or as a method to identify ways to improve medical care. For example, if you are asking about a population’s common allergies, you will have to extract many individuals’ allergy information, and put that into an easily interpretable table format where you will then perform your analysis.
+
+#### Image analysis/extrapolation
+
+- A more complex data source to analyse are images/videos. There is a wealth of information coded in an image or video, and it is just waiting to be extracted. An example of image analysis that you may be familiar with is when you upload a picture to Facebook and not only does it automatically recognize faces in the picture, but then suggests who they may be. A fun example you can play with is the [DeepDream software](https://deepdreamgenerator.com/) that was originally designed to detect faces in an image, but has since moved on to more *artistic* pursuits.
+
+  ![](./images/transfer.png)
+
+## Data is of secondary importance
+
+- Recognizing that we’ve spent a lot of time going over what data is, we need to reiterate - Data is important, but it is secondary to your question. A good data scientist asks questions first and seeks out relevant data second.
+
+- Admittedly, often the data available will limit, or perhaps even enable, certain questions you are trying to ask. In these cases, you may have to reframe your question or answer a related question, but the data itself does not drive the question asking.
