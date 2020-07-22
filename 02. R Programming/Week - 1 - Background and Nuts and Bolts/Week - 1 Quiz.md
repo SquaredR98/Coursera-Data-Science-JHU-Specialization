@@ -129,25 +129,25 @@ In the dataset provided for this Quiz, what are the column names of the dataset?
 
 Extract the first 2 rows of the data frame and print them to the console. What does the output look like?
 
-- [x] ```R
+- [x] ```python
     Ozone Solar.R Wind Temp Month Day
   1    41     190  7.4   67     5   1
   2    36     118  8.0   72     5   2
   ```
 
-- [ ] ```R
+- [ ] ```python
     Ozone Solar.R Wind Temp Month Day
   1    18     224 13.8   67     9  17
   2    NA     258  9.7   81     7  22
   ```
 
-- [ ] ```R
+- [ ] ```python
     Ozone Solar.R Wind Temp Month Day
   1    18     224 13.8   67     9  17
   2    NA     258  9.7   81     7  22
   ```
 
-- [ ] ```R
+- [ ] ```python
     Ozone Solar.R Wind Temp Month Day
   1     7      NA  6.9   74     5  11
   2    35     274 10.3   82     7  17
@@ -166,25 +166,25 @@ How many observations (i.e. rows) are in this data frame?
 
 Extract the **last** 2 rows of the data frame and print them to the console. What does the output look like?
 
-- [ ] ```R
+- [ ] ```python
       Ozone Solar.R Wind Temp Month Day
   152    31     244 10.9   78     8  19
   153    29     127  9.7   82     6   7
   ```
 
-- [ ] ```R
+- [ ] ```python
   	Ozone Solar.R Wind Temp Month Day
   152    11      44  9.7   62     5  20
   153   108     223  8.0   85     7  25
   ```
 
-- [ ] ```R
+- [ ] ```python
   	Ozone Solar.R Wind Temp Month Day
   152    11      44  9.7   62     5  20
   153   108     223  8.0   85     7  25
   ```
 
-- [ ] ```R
+- [ ] ```python
   	Ozone Solar.R Wind Temp Month Day
   152    11      44  9.7   62     5  20
   153   108     223  8.0   85     7  25
