@@ -1,0 +1,231 @@
+---
+title: "Programming Assignment - 1"
+output: html_notebook
+---
+
+# Part - 1
+
+Write a function named 'pollutantmean' that calculates the mean of a pollutant (sulfate or nitrate) across a specified list of monitors. The function 'pollutantmean' takes three arguments: 'directory', 'pollutant', and 'id'. Given a vector monitor ID numbers, 'pollutantmean' reads that monitors' particulate matter data from the directory specified in the 'directory' argument and returns the mean of the pollutant across all of the monitors, ignoring any missing values coded as NA. A prototype of the function is as follows
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/AniR5o00EeWk4wrqfRkIMQ_26d94fc4f878a8b60240f6fda6e17f6c_Screen-Shot-2015-11-17-at-9.03.29-AM.png?expiry=1595548800000&hmac=Zjw5K-6pbJVhkA0qC9wCUJEH9d0m6rT_jROlMq6CjXI)
+
+You can see some example output from this function below. The function that you write should be able to match this output. Please save your code to a file named pollutantmean.R.
+
+```{r}
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  
+  # Format number with fixed width and then append .csv to number
+  fileNames <- paste0(directory, '/', formatC(id, width=3, flag="0"), ".csv" )
+  
+  # Reading in all files and making a large data.table
+  lst <- lapply(fileNames, data.table::fread)
+  dt <- rbindlist(lst)
+  
+  if (c(pollutant) %in% names(dt)){
+    return(dt[, lapply(.SD, mean, na.rm = TRUE), .SDcols = pollutant][[1]])
+  } 
+}
+```
+
+
+**Question 1**
+What value is returned by the following call to pollutantmean()? You should round your output to 3 digits.
+
+```r
+pollutantmean("specdata", "sulfate", 1:10)
+```
+**Ans**:
+
+```{r}
+round(pollutantmean("../data/specdata", "sulfate", 1:10), digits = 3)
+```
+
+**Question 2**
+What value is returned by the following call to pollutantmean()? You should round your output to 3 digits.
+
+```r
+pollutantmean("specdata", "nitrate", 70:72)
+```
+**Ans**:
+
+```{r}
+pollutantmean("../data/specdata", "nitrate", 70:72)
+```
+
+**Question 3**
+What value is returned by the following call to pollutantmean()? You should round your output to 3 digits.
+
+```r
+pollutantmean("specdata", "sulfate", 34)
+```
+**Ans**:
+
+```{r}
+pollutantmean("../data/specdata", "sulfate", 34)
+```
+
+**Question 4**
+What value is returned by the following call to pollutantmean()? You should round your output to 3 digits.
+
+```r
+pollutantmean("specdata", "nitrate")
+```
+**Ans**:
+
+```{r}
+pollutantmean("../data/specdata", "nitrate")
+```
+
+```{r}
+complete <- function(directory,  id = 1:332) {
+  
+  # Format number with fixed width and then append .csv to number
+  fileNames <- paste0(directory, '/', formatC(id, width=3, flag="0"), ".csv" )
+  
+  # Reading in all files and making a large data.table
+  lst <- lapply(fileNames, data.table::fread)
+  dt <- rbindlist(lst)
+  
+  return(dt[complete.cases(dt), .(nobs = .N), by = ID])
+  
+}
+```
+
+
+**Question 5**
+What value is printed at end of the following code?
+
+```r
+cc <- complete("specdata", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nobs)
+```
+
+**Ans:**
+
+```{r}
+cc <- complete("../data/specdata", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nobs)
+```
+
+
+**Question 5**
+What value is printed at end of the following code?
+
+```r
+cc <- complete("specdata", 54)
+print(cc$nobs)
+```
+
+**Ans:**
+
+```{r}
+cc <- complete("../data/specdata", 54)
+print(cc$nobs)
+```
+
+**Question 5**
+What value is printed at end of the following code?
+
+```r
+RNGversion("3.5.1")  
+set.seed(42)
+cc <- complete("specdata", 332:1)
+use <- sample(332, 10)
+print(cc[use, "nobs"])
+```
+
+**Ans:**
+
+```{r}
+#RNGversion("3.5.1")  
+set.seed(42)
+cc <- complete("../data/specdata", 332:1)
+use <- sample(332, 10)
+print(cc)
+print(t(cc[use, "nobs"]))
+```
+
+```{r}
+corr <- function(directory, threshold = 0) {
+  
+  # Reading in all files and making a large data.table
+  lst <- lapply(file.path(directory, list.files(path = directory, pattern="*.csv")), data.table::fread)
+  dt <- rbindlist(lst)
+  
+  # Only keep completely observed cases
+  dt <- dt[complete.cases(dt),]
+  
+  # Apply threshold
+  dt <- dt[, .(nobs = .N, corr = cor(x = sulfate, y = nitrate)), by = ID][nobs > threshold]
+  return(dt[, corr])
+}
+```
+
+
+**Question 8**
+What value is printed at end of the following code?
+```r
+cr <- corr("specdata")                
+cr <- sort(cr)   
+RNGversion("3.5.1")
+set.seed(868)                
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+```
+
+**Ans :**
+
+```{r}
+cr <- corr("../data/specdata")                
+cr <- sort(cr)   
+#RNGversion("3.5.1")
+set.seed(868)                
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+```
+
+**Question 9**
+What value is printed at end of the following code?
+
+```r
+cr <- corr("specdata", 129)                
+cr <- sort(cr)                
+n <- length(cr)    
+RNGversion("3.5.1")
+set.seed(197)                
+out <- c(n, round(cr[sample(n, 5)], 4))
+print(out)
+```
+
+**Ans :**
+
+```{r}
+cr <- corr("../data/specdata", 129)                
+cr <- sort(cr)                
+n <- length(cr)    
+#RNGversion("3.5.1")
+set.seed(197)                
+out <- c(n, round(cr[sample(n, 5)], 4))
+print(out)
+```
+
+**Question 10**
+What value is printed at end of the following code?
+
+```r
+cr <- corr("specdata", 2000)                
+n <- length(cr)                
+cr <- corr("specdata", 1000)                
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
+```
+
+**Ans :**
+
+```{r}
+cr <- corr("../data/specdata", 2000)                
+n <- length(cr)                
+cr <- corr("../data/specdata", 1000)                
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
+```
