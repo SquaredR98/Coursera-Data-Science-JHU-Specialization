@@ -141,8 +141,7 @@ print(cc[use, "nobs"])
 set.seed(42)
 cc <- complete("../data/specdata", 332:1)
 use <- sample(332, 10)
-print(cc)
-print(t(cc[use, "nobs"]))
+print(cc[use, "nobs"])
 ```
 
 ```{r}
